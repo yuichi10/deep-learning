@@ -71,10 +71,26 @@ def dot_product():
     F = np.array([7, 8])
     print('{0} \ndot \n{1} \n= \n{2}'.format(E, F, np.dot(E, F)))
 
+def easy_neuron_network_3_3_3():
+    X = np.array([1, 2]) # input layer (layer 0)
+    W = np.array([[1, 3, 5], [2, 4, 6]]) # middle layer (layer 1)
+    Y = np.dot(X, W) # output (layer 2)
+    print(Y)
     
+def three_layer_neuron_network():
+    # from layer 0 to layer 1
+    x = np.array([1.0, 0.5]) # input (layer 0)
+    w1 = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]]) # weight
+    b1 = np.array([0.1, 0.2, 0.3]) # bias
+    a1 = np.dot(x, w1) + b1  # middle (layer 1)
+    print(a1)
+    # from layer 1 to layer 2
+
+# touch_numpy()
+# dot_product()    
 show_step_func_graph()
 test_sigmoid()
 show_sigmoid_graph()
 show_relu_graph()
-touch_numpy()
-dot_product()
+easy_neuron_network_3_3_3()
+three_layer_neuron_network()
