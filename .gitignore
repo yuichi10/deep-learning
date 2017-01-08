@@ -89,3 +89,13 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# own settings
+.idea
+dataset/mnist.pkl
+dataset/t10k-images-idx3-ubyte.gz
+dataset/t10k-labels-idx1-ubyte.gz
+dataset/train-images-idx3-ubyte.gz
+dataset/train-labels-idx1-ubyte.gz
+
+
