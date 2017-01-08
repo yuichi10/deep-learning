@@ -77,15 +77,101 @@ def easy_neuron_network_3_3_3():
     Y = np.dot(X, W) # output (layer 2)
     print(Y)
     
-def three_layer_neuron_network():
-    # from layer 0 to layer 1
-    x = np.array([1.0, 0.5]) # input (layer 0)
-    w1 = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]]) # weight
-    b1 = np.array([0.1, 0.2, 0.3]) # bias
-    a1 = np.dot(x, w1) + b1  # middle (layer 1)
-    print(a1)
-    # from layer 1 to layer 2
 
+class OwnThreeLayerNeuronNetork:
+    def __init__(self):
+        self.w1 = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]]) # weight layer 1
+        self.b1 = np.array([0.1, 0.2, 0.3]) # bias layer 1
+        self.w2 = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]]) # weight layer 2
+        self.b2 = np.array([0.1, 0.2])
+        self.w3 = np.array([[0.1, 0.3], [0.2, 0.4]])
+        self.b3 = np.array([[0.1, 0.2]])
+    
+    def show_result(self, **args):
+        if 'title' in args:
+            print(args['title']) 
+        if 'input_value' in args:
+            print('input vaule: {}'.format(args['input_value']))
+        if 'use_weight_value' in args:
+            print('use weight value: {}'.format(args['use_weight_value']))
+        if 'use_sigmoid_value' in args:
+            print('use sigmoid value: {}'.format(args['use_sigmoid_value']))
+        if 'use_identity_value' in args:
+            print('use identity function value: {}'.format(args['use_identity_value']))
+        print('\n')
+        
+    def sigmoid(self, x):
+        return 1 / (1 + np.exp(-x))
+        
+    def identity_function(self, x):
+        return x
+    
+    def get_data(self, x):
+        self.show_result(title='layer 0', input_value=x)
+        z1 = self.layer1(x)
+        z2 = self.layer2(z1)
+        y = self.layer3(z2)
+        return y
+    
+    def layer1(self, x):
+        a1 = np.dot(x, self.w1) + self.b1
+        z1 = self.sigmoid(a1)
+        self.show_result(title='layer 1', use_weight_value=a1, use_sigmoid_value=z1)
+        return z1
+    
+    def layer2(self, z1):
+        a2 = np.dot(z1, self.w2) + self.b2
+        z2 = self.sigmoid(a2)
+        self.show_result(title='layer 2', use_weight_value=a2, use_sigmoid_value=z2)
+        return z2        
+    
+    def layer3(self, z2):
+        a3 = np.dot(z2, self.w3) + self.b3
+        y = self.identity_function(a3)
+        self.show_result(title='layer 3', use_weight_value=a3, use_identity_value=a3)
+        return y
+        
+        
+class ThreeLayerNeuronNetwork:
+    def __init__(self):
+        self.init_network()
+        
+    def sigmoid(self, x):
+        return 1 / (1 + np.exp(-x))
+        
+    def identity_function(self, x):
+        return x
+        
+    def init_network(self):
+        network = {}
+        network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+        network['b1'] = np.array([0.1, 0.2, 0.3])
+        network['W2'] = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+        network['b2'] = np.array([0.1, 0.2])
+        network['W3'] = np.array([[0.1, 0.3], [0.2, 0.4]])
+        network['b3'] = np.array([[0.1, 0.2]])
+        return network
+    
+    def forward(self, network, x):
+        W1, W2, W3 = network['W1'], network['W2'], network['W3']
+        b1, b2, b3 = network['b1'], network['b2'], network['b3']
+        
+        a1 = np.dot(x, W1) + b1
+        z1 = self.sigmoid(a1)
+        a2 = np.dot(z1, W2) + b2
+        z2 = self.sigmoid(a2)
+        a3 = np.dot(z2, W3) + b3
+        z3 = self.sigmoid(a3)
+        y = self.identity_function(z3)
+        return y
+    
+    def start_network(self):
+        network = self.init_network()
+        x = np.array([1.0, 0.5])
+        y = self.forward(network, x)
+        print(y)
+        
+        
 # touch_numpy()
 # dot_product()    
 show_step_func_graph()
@@ -93,4 +179,9 @@ test_sigmoid()
 show_sigmoid_graph()
 show_relu_graph()
 easy_neuron_network_3_3_3()
-three_layer_neuron_network()
+
+threelayer = OwnThreeLayerNeuronNetork()
+threelayer.get_data(np.array([1.0, 0.5]))
+
+threelayer = ThreeLayerNeuronNetwork()
+threelayer.start_network()
