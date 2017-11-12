@@ -11,10 +11,12 @@ theta2_grad = zeros(size(theta2));
 
 m = size(x, 2);
 
-a1 = [x; zeros(1, size(x, 2)) + 1];
+% a1 = [x; zeros(1, size(x, 2)) + 1];
+a1 = [zeros(1, size(x, 2)) + 1; x];
 z2 = theta1 * a1;
 a2 = sigmoid(z2);
-a2 = [a2; zeros(1, size(a2, 2)) + 1];
+% a2 = [a2; zeros(1, size(a2, 2)) + 1];
+a2 = [zeros(1, size(a2, 2)) + 1; a2];
 z2 = theta2 * a2;
 a3 = sigmoid(z2);
 
@@ -51,16 +53,4 @@ theta1_grad(:, 1) = theta1_grad(:, 1) / m;
 theta1_grad(:, 2:end) = theta1_grad(:, 2:end) + lambda * theta1(:, 2:end) / 2 / m;
 theta2_grad(:, 1) = theta2_grad(:, 1) / m;
 theta2_grad(:, 2:end) = theta2_grad(:, 2:end) / m + lambda * theta2(:, 2:end) / 2 / m;
-
-
-
-
-
-
-
-
-
-
-
-
 
